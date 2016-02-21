@@ -6,7 +6,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.2.1
-Release:        8.10%{?dist}
+Release:        8.11%{?dist}
 # Maven-shared defines file-management version as 1.2.2
 Epoch:          1
 Summary:        Maven File Management API
@@ -21,8 +21,8 @@ Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix_java_common}maven-local
-BuildRequires:  maven30-maven-shared
-BuildRequires:  maven30-modello
+BuildRequires:  %{?scl_prefix}maven-shared
+BuildRequires:  %{?scl_prefix}modello
 
 
 %description
@@ -38,7 +38,7 @@ API documentation for %{pkg_name}.
 
 %prep
 %setup -q -n %{pkgname}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 cp -p %{SOURCE1} LICENSE.txt
 
@@ -51,13 +51,13 @@ sed -i /testDeleteDanglingSymlink/,/assert/s/False/True/ `find -name FileSetUtil
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_build
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -71,6 +71,9 @@ set -e -x
 %doc LICENSE.txt
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1:1.2.1-8.11
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 1:1.2.1-8.10
 - maven33 rebuild
 
