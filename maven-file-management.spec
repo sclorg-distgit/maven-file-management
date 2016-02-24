@@ -6,7 +6,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.2.1
-Release:        8.11%{?dist}
+Release:        8.12%{?dist}
 # Maven-shared defines file-management version as 1.2.2
 Epoch:          1
 Summary:        Maven File Management API
@@ -45,9 +45,6 @@ cp -p %{SOURCE1} LICENSE.txt
 # Need namespace for new version modello
 # Bug has been filed at http://jira.codehaus.org/browse/MSHARED-234
 sed -i "s|<model>|<model xmlns=\"http://modello.codehaus.org/MODELLO/1.3.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://modello.codehaus.org/MODELLO/1.3.0 http://modello.codehaus.org/xsd/modello-1.3.0.xsd\" xml.namespace=\"..\" xml.schemaLocation=\"..\" xsd.namespace=\"..\" xsd.targetNamespace=\"..\">|" src/main/mdo/fileset.mdo
-
-# FileSetUtilsTest.testDeleteDanglingSymlink() is expected to fail
-sed -i /testDeleteDanglingSymlink/,/assert/s/False/True/ `find -name FileSetUtilsTest.java`
 %{?scl:EOF}
 
 %build
@@ -71,6 +68,9 @@ set -e -x
 %doc LICENSE.txt
 
 %changelog
+* Wed Jan 20 2016 Michal Srb <msrb@redhat.com> - 1:1.2.1-8.12
+- Restore original dangling symlink test behaviour
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1:1.2.1-8.11
 - maven33 rebuild #2
 
