@@ -6,7 +6,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.2.1
-Release:        8.12%{?dist}
+Release:        8.13%{?dist}
 # Maven-shared defines file-management version as 1.2.2
 Epoch:          1
 Summary:        Maven File Management API
@@ -20,7 +20,7 @@ Source0:        %{pkg_name}-%{version}.tar.xz
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 BuildArch:      noarch
 
-BuildRequires:  %{?scl_prefix_java_common}maven-local
+BuildRequires:  %{?scl_prefix}maven-local
 BuildRequires:  %{?scl_prefix}maven-shared
 BuildRequires:  %{?scl_prefix}modello
 
@@ -68,6 +68,9 @@ set -e -x
 %doc LICENSE.txt
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 1:1.2.1-8.13
+- Fix BR on maven-local & co.
+
 * Wed Jan 20 2016 Michal Srb <msrb@redhat.com> - 1:1.2.1-8.12
 - Restore original dangling symlink test behaviour
 
